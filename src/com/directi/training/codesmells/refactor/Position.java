@@ -1,4 +1,4 @@
-package com.directi.training.codesmells.smelly;
+package com.directi.training.codesmells.refactor;
 
 public class Position
 {
@@ -39,5 +39,20 @@ public class Position
             return false;
         Position otherPosition = (Position) obj;
         return this == obj || (_row == otherPosition.getRow() && _column == otherPosition.getColumn());
+    }
+
+    //Logika pergerakan pindahin ke sini
+    public boolean isStraightPathTo(Position target)
+    {
+        return Math.abs(this._row - target._row) == Math.abs(this._column - target._column)
+                || this._row == target._row
+                || this._column == target._column;
+    }
+
+    public Direction directionTo(Position target)
+    {
+        int rowDir = Integer.compare(target._row, this._row);
+        int colDir = Integer.compare(target._column, this._column);
+        return new Direction(rowDir, colDir);
     }
 }

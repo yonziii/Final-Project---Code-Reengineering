@@ -1,6 +1,6 @@
-package com.directi.training.codesmells.smelly.chess;
+package com.directi.training.codesmells.refactor.chess;
 
-import com.directi.training.codesmells.smelly.Color;
+import com.directi.training.codesmells.refactor.Color;
 
 public class Player
 {

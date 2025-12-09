@@ -1,8 +1,8 @@
-package com.directi.training.codesmells.smelly.pieces;
+package com.directi.training.codesmells.refactor.pieces;
 
-import com.directi.training.codesmells.smelly.Color;
-import com.directi.training.codesmells.smelly.Position;
-import com.directi.training.codesmells.smelly.chess.ChessBoard;
+import com.directi.training.codesmells.refactor.Color;
+import com.directi.training.codesmells.refactor.Position;
+import com.directi.training.codesmells.refactor.chess.ChessBoard;
 
 public class Bishop extends Piece
 {

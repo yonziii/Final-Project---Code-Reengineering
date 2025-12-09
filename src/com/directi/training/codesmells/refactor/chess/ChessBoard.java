@@ -1,14 +1,14 @@
-package com.directi.training.codesmells.smelly.chess;
+package com.directi.training.codesmells.refactor.chess;
 
-import com.directi.training.codesmells.smelly.Color;
-import com.directi.training.codesmells.smelly.Direction;
-import com.directi.training.codesmells.smelly.Position;
-import com.directi.training.codesmells.smelly.pieces.*;
+import com.directi.training.codesmells.refactor.Color;
+import com.directi.training.codesmells.refactor.Direction;
+import com.directi.training.codesmells.refactor.Position;
+import com.directi.training.codesmells.refactor.pieces.*;
 
 public class ChessBoard
 {
     private final Cell[][] _board;
-    public boolean _kingDead;
+    //kingDead itu gameLogic bukan board logic
 
     public ChessBoard()
     {
@@ -27,7 +27,7 @@ public class ChessBoard
         }
     }
     
- // Was inside GameEngine.java
+ // Tadinya resetboard di game engine 
 
     public void resetBoard() {
 
@@ -38,7 +38,6 @@ public class ChessBoard
         setupRow(0, Color.BLACK);
         setupPawns(1, Color.BLACK);
         
-       _kingDead = false;
     }
 
     private void setupRow(int row, Color color) {
@@ -103,9 +102,11 @@ public class ChessBoard
     {
         if (getPiece(from) instanceof Knight)
             return true;
-        if (!isStraightLineMove(from, to))
+        // Logic delegated to Position class
+        if (!from.isStraightPathTo(to))
             return false;
-        Direction direction = new Direction(cappedCompare(to.getRow(), from.getRow()), cappedCompare(to.getColumn(), from.getColumn()));
+            
+        Direction direction = from.directionTo(to);
         from = from.translatedPosition(direction);
         while (!from.equals(to)) {
             if (!isEmpty(from))
@@ -115,43 +116,21 @@ public class ChessBoard
         return true;
     }
 
-    private boolean isStraightLineMove(Position from, Position to)
-    {
-        return Math.abs(from.getRow() - to.getRow()) == Math.abs(from.getColumn() - to.getColumn())
-                || from.getRow() == to.getRow()
-                || from.getColumn() == to.getColumn();
-    }
-
-    private int cappedCompare(int x, int y)
-    {
-        return Math.max(-1, Math.min(1, Integer.compare(x, y)));
-    }
+    //Logika gerak pindahin ke position
     
     //Pindah translatedPosition ke position
     
     //Ganti movePiece, updateIsKingDead supaya pake tipe data Position
     public void movePiece(Position from, Position to)
     {
-        updateIsKingDead(to);
+        // Removed updateIsKingDead (Referee logic moved to GameEngine)
         if (!getCell(to).isEmpty())
             getCell(to).removePiece();
         getCell(to).setPiece(getPiece(from));
         getCell(from).removePiece();
     }
 
-    private void updateIsKingDead(Position to)
-    {
-        if (getPiece(to) instanceof King) {
-            _kingDead = true;
-        }
-    }
-
     //isValidPawnMove pindah ke pawn jadi isValidMove
-
-    public boolean isKingDead()
-    {
-        return _kingDead;
-    }
 
     @Override
     public String toString()

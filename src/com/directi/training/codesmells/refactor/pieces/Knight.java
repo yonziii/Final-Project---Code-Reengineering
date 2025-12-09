@@ -1,12 +1,12 @@
-package com.directi.training.codesmells.smelly.pieces;
+package com.directi.training.codesmells.refactor.pieces;
 
-import com.directi.training.codesmells.smelly.Color;
-import com.directi.training.codesmells.smelly.Position;
-import com.directi.training.codesmells.smelly.chess.ChessBoard;
+import com.directi.training.codesmells.refactor.Color;
+import com.directi.training.codesmells.refactor.Position;
+import com.directi.training.codesmells.refactor.chess.ChessBoard;
 
-public class King extends Piece
+public class Knight extends Piece
 {
-    public King(Color color)
+    public Knight(Color color)
     {
         super(color);
     }
@@ -14,10 +14,10 @@ public class King extends Piece
     @Override
     public String toString()
     {
-        return "K";
+        return "k";
     }
 
-	@Override
+    @Override
 	public boolean isValidMove(Position from, Position to, ChessBoard board) {
 		int columnDiff = Math.abs(to.getColumn() - from.getColumn());
 		int rowDiff = Math.abs(to.getRow() - from.getRow());

@@ -1,4 +1,4 @@
-package com.directi.training.codesmells.smelly;
+package com.directi.training.codesmells.refactor;
 
 public class Direction
 {
